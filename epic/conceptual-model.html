@@ -8,39 +8,34 @@
 		<body>
 			<h1> Conceptual Model</h1>
 			<h2>Entities and Attributes</h2>
-			<h3>Designers:</h3>
-			<ul>
-				<li>designerId (Primary key)</li>
-				<li>designerType</li>
-				<li>designerBrand</li>
-				<li>designerProductId</li>
-			</ul>
+
 			<h3>Customers:</h3>
 			<ul>
 				<li>userId (Primary Key)</li>
 				<li>userName</li>
-				<li>userActivation</li>
+				<li>userHash</li>
+				<li>userActivationToken (for account verification)</li>
 				<li>userEmail</li>
+			</ul>
+
+
+			<h3>Categories:</h3>
+			<ul>
+				<li>categoryId (Foreign Key)</li>
+				<li>categoryName</li>
+				<li>categoryDesign</li>
 			</ul>
 
 			<h3>Products</h3>
 			<ul>
 				<li>productId (Primary Key)</li>
-				<li>productType</li>
-				<li>productLists</li>
-				<li>productItems</li>
-			</ul>
-			<h3>Categories:</h3>
-			<ul>
-				<li>categoryId (Foreign Key)</li>
-				<li>categoryLists</li>
-				<li>categoryItems</li>
 				<li>categoryProductId (Foreign Key)</li>
+				<li>productType</li>
+				<li>productType</li>
+				<li>productPrice</li>
 			</ul>
-
-
 			<h2>Relationships</h2>
-			<p>1 to 1 relationship: One designer can only have one page.</p>
+			<p>1 to 1 relationship: One customer can only have one page.</p>
 			<p> Many to many: Many customers can  buy from many designers</p>
 		</body>
 	</html>
