@@ -20,5 +20,28 @@ CREATE TABLE customer (
 );
 
 
+CREATE TABLE category (
+
+	categoryId BINARY (16)NOT NULL,
+	categoryName VARCHAR (32) NOT NULL,
+	categoryDesign VARCHAR(30),
+
+	INDEX (categoryId),
+
+	FOREIGN KEY (categoryId) REFERENCES customer (customerId)
+);
 
 
+
+CREATE TABLE product(
+	productId BINARY(30) NOT NULL,
+	productCategoryId BINARY (30)NOT NULL ,
+	productType VARCHAR(16) NOT NULL,
+	productPrice CHAR (16),
+
+	PRIMARY KEY (productId),
+
+	INDEX (productCategoryId),
+
+	FOREIGN KEY (productCategoryId) REFERENCES product (productId)
+);
