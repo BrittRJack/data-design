@@ -21,4 +21,4 @@ WHERE customerEmail= ("johnson2@cnm.edu");
 
 
 
-SELECT customerId, customerActivationToken, customerAtHandle, customerEmail, customerHash, customerPhone FROM customer WHERE customerId = (unhex("c1d5cc89ee764e4fb42c49ecf2a2fe26");
+SELECT customer.customerId, customerActivationToken, customerHash, customerAtHandle, customerEmail FROM customer WHERE customerId = unhex("c1d5cc89ee764e4fb42c49ecf2a2fe26")
