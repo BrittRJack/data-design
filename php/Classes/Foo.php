@@ -15,15 +15,26 @@
  * @Documentation https://php.net/manual/en/language.oop5.decon.php
  **/
 
+class product {
+	private $productId;
+	private $categoryProductId;
+	private $newProductType;
+	private $newProductPrice;
+}
+
 public function __construct ($newProductId,$newCategoryProductId,string $newProductType,
 $newProductPrice = null) {
 	    try {
-	    	$this->setProductId($newProductId);
-	    	$this->setCategoryProductId($newCategoryProductId);
-	    	$this->setProductType($newProductType);
-	    	$this->setProductPrice($newProductPrice);
+			 $this->setProductId($newProductId);
+			 $this->setCategoryProductId($newCategoryProductId);
+			 $this->setProductType($newProductType);
+			 $this->setProductPrice($newProductPrice);
+		 }
+		 catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError
+		 $exception) { $exceptionType = get_class($exception);
+		 throw (new$exceptionType($exception->getMessage(),0,$exception));
 
-	}
+		 }
 }
 
 
