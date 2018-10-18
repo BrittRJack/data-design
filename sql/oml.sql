@@ -21,11 +21,15 @@ WHERE customerEmail= ("johnson2@cnm.edu");
 
 
 
-SELECT customer.customerId, customerActivationToken, customerHash, customerAtHandle, customerEmail FROM customer WHERE customerId = unhex("c1d5cc89ee764e4fb42c49ecf2a2fe26")
+SELECT customer.customerId, customerActivationToken, customerHash, customerAtHandle, customerEmail FROM customer WHERE customerId = unhex("c1d5cc89ee764e4fb42c49ecf2a2fe26");
 
 
-SELECT categoryId, categoryName, categoryDesign FROM category WHERE categoryId = unhex("568340198eee442d8757b3b03bdb5521")
+SELECT categoryId, categoryName, categoryDesign FROM category WHERE categoryId = unhex("568340198eee442d8757b3b03bdb5521");
 
 
 SELECT product.productId,productCategoryId,productType,productPrice category.categoryId FROM product INNER JOIN category ON product.productId
-=
+= productCategoryId WHERE categoryId = unhex("568340198eee442d8757b3b03bdb5521");
+
+
+
+DELETE FROM customer WHERE customerId = unhex("c1d5cc89ee764e4fb42c49ecf2a2fe26");
