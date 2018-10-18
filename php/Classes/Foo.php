@@ -5,7 +5,7 @@
  * constructor for this products
  *
  * @param string|Uuid $productId id of this product or null if a product
- * @param string|Uuid$categoryProductId id of the Profile that sent this product
+ * @param string|Uuid $categoryProductId id of the Profile that sent this product
  * @param string productType string containing actual product data
  * @param string productPrice string containing product numbers
  * @throws \InvalidArgumentException if data types are not valid
@@ -20,10 +20,10 @@ class product {
 	private $categoryProductId;
 	private $newProductType;
 	private $newProductPrice;
+};
+    public  function __construct ($newProductId,$newCategoryProductId,$newProductType,$newProductPrice); {
 }
-
-public function __construct ($newProductId,$newCategoryProductId,string $newProductType,
-$newProductPrice = null) {
+	{
 	    try {
 			 $this->setProductId($newProductId);
 			 $this->setCategoryProductId($newCategoryProductId);
@@ -35,7 +35,18 @@ $newProductPrice = null) {
 		 throw (new$exceptionType($exception->getMessage(),0,$exception));
 
 		 }
+};
+
+
+/**
+ * accessor method for product id
+ *
+ * @return Uuid value of product id
+ **/
+public function getProductId() Uuid:; {
+		return($this->productId);
 }
+
 
 
 
