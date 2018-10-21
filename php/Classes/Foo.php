@@ -86,12 +86,12 @@ $exception) {
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
 	}
 	// convert and store the profile id
-	$this -> $categoryProductId = $uuid;
+	$this -> $ProductCategoryId = $uuid;
 }
 	/**
 	 * accessor method for tweet content
 	 *
-	 * @return string value of tweet content
+	 * @return string value of product CategoryId
 	 **/
 	public function getTweetContent() : string {
 	return $this -> $productType;
