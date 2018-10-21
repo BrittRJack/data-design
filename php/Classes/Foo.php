@@ -1,8 +1,13 @@
 <?php
 
+namespace bjack2\datadesign;
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-/**
- * constructor for this products
+use Ramsey\Uuid\Uuid;
+
+
+
+/* constructor for this products
  *
  * @param string|Uuid $productId id of this product or null if a product
  * @param string|Uuid $categoryProductId id of the Profile that sent this product
@@ -13,29 +18,28 @@
  * @throws \TypeError if data types violate type hints
  * @throws \Exception if some other exception occurs
  * @Documentation https://php.net/manual/en/language.oop5.decon.php
- **/
+ */
 
 class Product {
 	private $ProductId;
 	private $CategoryProductId;
 	private $ProductType;
 	private $ProductPrice;
-}
 
-  public function __construct ($newProductId,$newCategoryProductId, string $newProductType, $newProductPrice = null){
-	{
+  public function __construct($newProductId,$newCategoryProductId, string $newProductType, $newProductPrice = null){
 		try {
 			$this->setProductId($newProductId);
-			$this->setCategoryProductId($newCategoryProductId);
+			$this->setProductCategoryId($newCategoryProductId);
 			$this->setProductType($newProductType);
 			$this->setProductPrice($newProductPrice);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError
-		$exception) {
+		}
+
+		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
-			throw (new$exceptionType($exception->getMessage(), 0, $exception));
+			throw(new$exceptionType($exception->getMessage(), 0, $exception));
 
 		}
-	}
+}
 
 
 /**
@@ -45,7 +49,7 @@ class Product {
  **/
 
 
-public function getProductId()Uuid:; {
+public function getProductId(): Uuid {
 		return($this->productId);
 
 		//this outside of class
@@ -61,7 +65,7 @@ public function getProductId()Uuid:; {
  **/
 
 public function setCategoryProductId() : Uuid{
-	return($this->CategoryProductId);
+	return($this -> $CategoryProductId);
 }
 
 
@@ -73,16 +77,16 @@ public function setCategoryProductId() : Uuid{
  * @throws \TypeError if $newTweetProfileId is not an integer
  **/
 
-public function setCategoryProductId(newCategoryProductId): void {
+public function setProductType($newProductType): void {
 	try {
-		$uuid = self::validateUuid($newCategoryProductId;
+		$uuid = self::validateUuid($newProductType);
 	} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError
 $exception) {
 		$exceptionType = get_class($exception);
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
 	}
 	// convert and store the profile id
-	$this->categoryProductId = $uuid;
+	$this -> $categoryProductId = $uuid;
 }
 	/**
 	 * accessor method for tweet content
@@ -90,7 +94,7 @@ $exception) {
 	 * @return string value of tweet content
 	 **/
 	public function getTweetContent() : string {
-	return($this->productType);
+	return $this -> $productType;
 }
 
 
@@ -104,30 +108,30 @@ $exception) {
  **/
 
 public function setProductType (string $newProductType) : void {
-		// verify the product type is secure
-		$newProductType = trim($newProductType);
-		$newProductType = filter_var($newProductType, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newProductType) === true) {
-			throw(new \InvalidArgumentException("Product Type is empty or insecure"));
-		}
+	// verify the product type is secure
+	$newProductType = trim($newProductType);
+	$newProductType = filter_var($newProductType, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	if(empty($newProductType) === true) {
+		throw(new \InvalidArgumentException("Product Type is empty or insecure"));
+	}
 
-		// verify the product type will fit in the database
-		if(strlen($newProductType) >= 140) {
-			throw(new \RangeException("Product Type too large"));
-		}
+	// verify the product type will fit in the database
+	if(strlen($newProductType) >= 140) {
+		throw(new \RangeException("Product Type too large"));
+	}
 
-		{
+
 		// store the product type
-		$this->productType = $newProductType;
+		$this -> $productType = $newProductType;
 }
-/**
- * accessor method for product date
- *
- * @return \DateTime value of product date
- **/
+	/**
+	 * accessor method for product date
+	 *
+	 * @return \DateTime value of product date
+	 **/
 
-		public function getDate() : \DateTime {
-			return($this->productDate);
+	public function getDate(): \DateTime {
+		return ($this->productDate);
 		}
 
 
@@ -141,7 +145,7 @@ public function setProductType (string $newProductType) : void {
 public function setProductDate($newProductDate = null) : void {
 // base case: if the date is null, use the current date and time
 			if($newProductDate ===null){
-				$this->productDate = new \DateTime();
+				$this -> $productDate = new \DateTime();
 				return;
 
 			}
