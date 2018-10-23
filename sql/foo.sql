@@ -38,7 +38,7 @@ CREATE TABLE product(
 	productId BINARY(16) NOT NULL,
 	productCategoryId BINARY (16)NOT NULL ,
 	productType VARCHAR(16) NOT NULL,
-	productPrice SMALLINT (255),
+	productDtae SMALLINT (255),
 
 	PRIMARY KEY (productId),
 
