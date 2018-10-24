@@ -15,13 +15,12 @@ spl_autoload_register(function($class) {
 	 * prefix: the prefix for all the classes (i.e., the namespace)
 	 * baseDir: the base directory for all classes (default = current directory)
 	 **/
-	$prefix = "bjack2\DataDesign";
+	$prefix = "bjack2\\DataDesign";
 	$baseDir = __DIR__;
 
 	// does the class use the namespace prefix?
-
 	$len = strlen($prefix);
-	if (strncmp($prefix, $class, $len) !== 0 ){
+	if (strncmp($prefix, $class, $len) !== 0) {
 		// no, move to the next registered autoloader
 		return;
 	}
@@ -32,11 +31,10 @@ spl_autoload_register(function($class) {
 	// replace the namespace prefix with the base directory, replace namespace
 	// separators with directory separators in the relative class name, append
 	// with .php
-	$file = $baseDir . str_replace("\\", "/" $className) . ".php";
-
+	$file = $baseDir . str_replace("\\", "/", $className) . ".php";
 
 	// if the file exists, require it
-	if(file_exists($file)){
-		require_once ($file);
+	if(file_exists($file)) {
+		require_once($file);
 	}
 });

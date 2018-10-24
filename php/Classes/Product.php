@@ -2,8 +2,9 @@
 
 
 namespace bjack2\DataDesign;
-require_once(dirname(__DIR__, 2) . "/vender/autoload.php");
 require_once ("Autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+
 
 use Ramsey\Uuid\Uuid;
 
@@ -49,7 +50,7 @@ class Product {
 			$this->setProductDate($newProductDate);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage("Error"), 0, $exception));
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 
 		}
 	}
@@ -76,13 +77,13 @@ class Product {
 	 **/
 	public function setProductId( $newProductId) : void {
 		try {
-			$uuid = self::validateUuid($newProductId);
+			$newProductId = self::validateUuid($newProductId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 
 		}
 
 		// convert and store the tweet id
-		$this->productId = $uuid;
+		$this->productId = $newProductId;
 	}
 
 	/**
@@ -98,20 +99,20 @@ class Product {
 	/**
 	 * mutator method for tweet profile id
 	 *
-	 * @param string | Uuid $newTweetProfileId new value of tweet profile id
+	 * @param string | Uuid $newProductCategoryId new value of tweet profile id
 	 * @throws \RangeException if $newProfileId is not positive
 	 * @throws \TypeError if $newTweetProfileId is not an integer
 	 **/
 	public function setProductCategoryId( $newProductCategoryId) : void {
 		try {
-			$uuid = self::validateUuid($newProductCategoryId);
+			$newProductCategoryId = self::validateUuid($newProductCategoryId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 
 		// convert and store the profile id
-		$this->productCategoryId = $uuid;
+		$this->productCategoryId = $newProductCategoryId;
 	}
 
 	/**
@@ -126,9 +127,9 @@ class Product {
 	/**
 	 * mutator method for tweet content
 	 *
-	 * @param string $newTweetContent new value of tweet content
+	 * @param string $newProductType new value of tweet content
 	 * @throws \InvalidArgumentException if $newTweetContent is not a string or insecure
-	 * @throws \RangeException if $newTweetContent is > 140 characters
+	 * @throws \RangeException if $newProductType is > 140 characters
 	 * @throws \TypeError if $newTweetContent is not a string
 	 **/
 	public function setProductType(string $newProductType) : void {
@@ -173,7 +174,7 @@ class Product {
 
 		// store the like date using the ValidateDate trait
 		try {
-			$newProductDate = self:: ValidateDateTime ($newProductDate);
+			$newProductDate = self:: ValidateDate($newProductDate);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
