@@ -181,7 +181,151 @@ class Product {
 		}
 		$this->productDate = $newProductDate;
 	}
-}
+		/**
+		 * inserts this Tweet into mySQL
+		 *
+		 * @param \PDO $pdo PDO connection object
+		 * @throws \PDOException when mySQL related errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 **/
+		public function insert(PDO $pdo): void {
+			// create query template
+			$query = "INSERT INTO (productId, productCategoryId, productType, productDate)";
+				$statement = $pdo->prepare($query);
+
+			// bind the member variables to the place holders in the template
+			$formattedDate = $this->productDate->format("Y-m-d H:i:s.u");
+			$parameters = ["productId" => $this->productId->getBytes(), "productCategoryId" => $this->productCategoryId->getBytes(), "productType" => $this->productType, "ProductDate" => $formattedDate];
+			$statement->execute($parameters);
+		}
+
+
+		/**
+		 * updates this Tweet in mySQL
+		 *
+		 * @param \PDO $pdo PDO connection object
+		 * @throws \PDOException when mySQL related errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 **/
+		public function update(\PDO $pdo) : void {
+
+			// create query template
+			$query = "UPDATE product SET productCategoryId = :productCategoryId, productType = :productDate WHERE productId = :productId ";
+			$statement = $pdo->prepare($query);
+
+
+			$formattedDate = $this->productDate-> format("Y-m-d-H-i-s.u");
+			$parameters = ["productId" => $this->productId->getBytes(), "productCategoryId" => $this->productCategoryId->getBytes(), "productType"
+			=> $this->productType, "productDate" => $formattedDate];
+			$statement->execute($parameters);
+		}
+
+			/**
+			 * gets the Product by ProductId
+			 *
+			 * @param \PDO $pdo PDO connection object
+			 * @param Uuid|string $productId product id to search for
+			 * @return Product|null Tweet found or null if not found
+			 * @throws \PDOException when mySQL related errors occur
+			 * @throws \TypeError when a variable are not the correct data type
+			 **/
+
+/**
+ * inserts this Tweet into mySQL
+
+​
+​
+
+	public function delete(\PDO $pdo) : void {
+							​
+		// create query template
+		$query = "DELETE FROM product WHERE productId = :productId";
+		$statement = $pdo->prepare($query);
+​
+		// bind the member variables to the place holder in the template
+		$parameters = ["productId" => $this->productId->getBytes()];
+		$statement->execute($parameters);
+	}
+​
+	/**
+	 * updates this Tweet in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+
+	/**
+	 * gets the Tweet by tweetId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $tweetId tweet id to search for
+	 * @return Product|null Tweet found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getProductByProductId(\PDO $pdo, $productId) : ?Product {
+		// sanitize the productId before searching
+		try {
+			$productId = self::validateUuid($productId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		// create query template
+		$query = "SELECT productId, productCategoryId, productType, ProductDate FROM product WHERE productId = :productId";
+		$statement = $pdo->prepare($query);
+
+		// bind the product id to the place holder in the template
+		$parameters = ["productId" => $productId->getBytes()];
+		$statement->execute($parameters);
+
+
+		/**
+		 * gets the Tweet by profile id
+		 *
+		 * @param \PDO $pdo PDO connection object
+		 * @param Uuid|string $productCategoryId profile id to search by
+		 * @return \SplFixedArray SplFixedArray of Products found
+		 * @throws \PDOException when mySQL related errors occur
+		 * @throws \TypeError when variables are not the correct data type
+		 **/
+
+		public static function getProductByProductCategoryId(\PDO $pdo, $productCategoryId) :\SplFixedArray{
+
+			try{
+				$productCategoryId = self::validateUuid($productCategoryId);
+			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception){
+				throw (new \PDOException(($exception->getMessage(), 0, $exception));
+
+				// create query template
+				$query = "SELECT productId, productCategoryId, ProductType, productDate FROM product WHERE productCategoryId = :productCategoryId";
+				$statment = $pdo->prepare($query);
+				// bind the product category id to the place holder in the template
+				$parameters = ["productCategoryId" => $productCategoryId->getBytes()];
+				$statment->execute($parameters);
+				// build an array of products
+				$products = new  \SplFixedArray(($statment->rowCount());
+				$statment->setFetchMode(\PDO:: FETCH_ASSOC);
+				while(($row = $statment->fetch()) !== false){
+					try {
+						$product = new  Product($row ["productId"], $row["productCategoryId"], $row["productType"], $row["productDate"]);
+						$product[$product->key()] = $product;
+						$product->next();
+					}	catch(\Exception $exception) {
+						// if the row couldn't be converted, rethrow it
+						throw (new \PDOException($exception->getMessage(), 0, $exception));
+						}
+
+						return($products);
+			}
+		}
+
+
+
+
+
+
+
 
 
 
