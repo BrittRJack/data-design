@@ -294,9 +294,9 @@ class Product {
 
 			try{
 				$productCategoryId = self::validateUuid($productCategoryId);
-			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception){
-				throw (new \PDOException(($exception->getMessage(), 0, $exception));
-
+			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+				throw (new \PDOException(($exception->getMessage()), 0, $exception));
+			}
 				// create query template
 				$query = "SELECT productId, productCategoryId, ProductType, productDate FROM product WHERE productCategoryId = :productCategoryId";
 				$statment = $pdo->prepare($query);
@@ -304,21 +304,21 @@ class Product {
 				$parameters = ["productCategoryId" => $productCategoryId->getBytes()];
 				$statment->execute($parameters);
 				// build an array of products
-				$products = new  \SplFixedArray(($statment->rowCount());
+				$products = new  \SplFixedArray(($statment->rowCount()));
 				$statment->setFetchMode(\PDO:: FETCH_ASSOC);
-				while(($row = $statment->fetch()) !== false){
+				while(($row = $statment->fetch()) !== false) {
 					try {
 						$product = new  Product($row ["productId"], $row["productCategoryId"], $row["productType"], $row["productDate"]);
 						$product[$product->key()] = $product;
 						$product->next();
-					}	catch(\Exception $exception) {
+					} catch(\Exception $exception) {
 						// if the row couldn't be converted, rethrow it
 						throw (new \PDOException($exception->getMessage(), 0, $exception));
-						}
+					}
 
-						return($products);
+					return ($products);
+				}
 			}
-		}
 
 
 
