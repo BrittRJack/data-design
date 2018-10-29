@@ -19,13 +19,13 @@ class Product {
 	 **/
 	private $productCategoryId;
 	/**
-	 * id of the Profile that sent this Tweet; this is a foreign key
-	 * @var Uuid $tweetProfileId
+	 * id of the Profile that sent this Product; this is a foreign key
+	 * @var Uuid $productCategoryId
 	 **/
 	private $productType;
 	/**
-	 * date and time this Tweet was sent, in a PHP DateTime object
-	 * @var \DateTime $tweetDate
+	 * date and time this Product was sent, in a PHP DateTime object
+	 * @var \DateTime $ProductDate
 	 **/
 	private $productDate;
 
@@ -57,23 +57,23 @@ class Product {
 
 
 	/**
-	 * accessor method for tweet id
+	 * accessor method for product id
 	 *
-	 * @return Uuid value of tweet id
+	 * @return Uuid value of product id
 	 **/
 	public function getProductId() : Uuid {
 		return($this->productId);
 
 		//this outside of class
-		//$tweet->getTweetId();
+		//$tweet->getProductId();
 	}
 
 	/**
-	 * mutator method for tweet id
+	 * mutator method for product id
 	 *
-	 * @param Uuid|string $newTweetId new value of tweet id
-	 * @throws \RangeException if $newTweetId is not positive
-	 * @throws \TypeError if $newTweetId is not a uuid or string
+	 * @param Uuid|string $newProductId new value of tweet id
+	 * @throws \RangeException if $newProductId is not positive
+	 * @throws \TypeError if $newProductId is not a uuid or string
 	 **/
 	public function setProductId( $newProductId) : void {
 		try {
@@ -82,14 +82,14 @@ class Product {
 
 		}
 
-		// convert and store the tweet id
+		// convert and store the product id
 		$this->productId = $newProductId;
 	}
 
 	/**
-	 * accessor method for tweet profile id
+	 * accessor method for product category id
 	 *
-	 * @return Uuid value of tweet profile id
+	 * @return Uuid value of  product category id
 	 **/
 	public function getProductCategoryId() : Uuid{
 		return($this->productCategoryId);
@@ -101,7 +101,7 @@ class Product {
 	 *
 	 * @param string | Uuid $newProductCategoryId new value of tweet profile id
 	 * @throws \RangeException if $newProfileId is not positive
-	 * @throws \TypeError if $newTweetProfileId is not an integer
+	 * @throws \TypeError if $newProductCategoryId is not an integer
 	 **/
 	public function setProductCategoryId( $newProductCategoryId) : void {
 		try {
@@ -116,9 +116,9 @@ class Product {
 	}
 
 	/**
-	 * accessor method for tweet content
+	 * accessor method for product content
 	 *
-	 * @return string value of tweet content
+	 * @return string value of product content
 	 **/
 	public function getProductType() : string {
 		return($this->productType);
@@ -127,32 +127,32 @@ class Product {
 	/**
 	 * mutator method for tweet content
 	 *
-	 * @param string $newProductType new value of tweet content
-	 * @throws \InvalidArgumentException if $newTweetContent is not a string or insecure
+	 * @param string $newProductType new value of product content
+	 * @throws \InvalidArgumentException if $newProductContent is not a string or insecure
 	 * @throws \RangeException if $newProductType is > 140 characters
-	 * @throws \TypeError if $newTweetContent is not a string
+	 * @throws \TypeError if $newProductContent is not a string
 	 **/
 	public function setProductType(string $newProductType) : void {
-		// verify the tweet content is secure
+		// verify the product content is secure
 		$newProductType = trim($newProductType);
 		$newProductType = filter_var($newProductType, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newProductType) === true) {
 			throw(new \InvalidArgumentException("product type is empty or insecure"));
 		}
 
-		// verify the tweet content will fit in the database
+		// verify the product content will fit in the database
 		if(strlen($newProductType) >= 140) {
 			throw(new \RangeException("product type content too large"));
 		}
 
-		// store the tweet content
+		// store the product content
 		$this->productType = $newProductType;
 	}
 
 	/**
-	 * accessor method for tweet date
+	 * accessor method for product date
 	 *
-	 * @return \DateTime value of tweet date
+	 * @return \DateTime value of product date
 	 **/
 	public function getProductDate() : \DateTime {
 		return($this->productDate);
@@ -161,9 +161,9 @@ class Product {
 	/**
 	 * mutator method for tweet date
 	 *
-	 * @param \DateTime|string|null $newTweetDate tweet date as a DateTime object or string (or null to load the current time)
-	 * @throws \InvalidArgumentException if $newTweetDate is not a valid object or string
-	 * @throws \RangeException if $newTweetDate is a date that does not exist
+	 * @param \DateTime|string|null $newProductDate Product date as a DateTime object or string (or null to load the current time)
+	 * @throws \InvalidArgumentException if $newProductDate is not a valid object or string
+	 * @throws \RangeException if $newProductDate is a date that does not exist
 	 **/
 	public function setProductDate($newProductDate = null) : void {
 		// base case: if the date is null, use the current date and time
@@ -182,7 +182,7 @@ class Product {
 		$this->productDate = $newProductDate;
 	}
 		/**
-		 * inserts this Tweet into mySQL
+		 * inserts this Product into mySQL
 		 *
 		 * @param \PDO $pdo PDO connection object
 		 * @throws \PDOException when mySQL related errors occur
@@ -201,7 +201,7 @@ class Product {
 
 
 		/**
-		 * updates this Tweet in mySQL
+		 * updates this Product in mySQL
 		 *
 		 * @param \PDO $pdo PDO connection object
 		 * @throws \PDOException when mySQL related errors occur
@@ -225,7 +225,7 @@ class Product {
 			 *
 			 * @param \PDO $pdo PDO connection object
 			 * @param Uuid|string $productId product id to search for
-			 * @return Product|null Tweet found or null if not found
+			 * @return Product|null Product found or null if not found
 			 * @throws \PDOException when mySQL related errors occur
 			 * @throws \TypeError when a variable are not the correct data type
 			 **/
@@ -259,8 +259,8 @@ class Product {
 	 * gets the Tweet by tweetId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $tweetId tweet id to search for
-	 * @return Product|null Tweet found or null if not found
+	 * @param Uuid|string $productId product id to search for
+	 * @return Product|null Product found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
@@ -281,7 +281,7 @@ class Product {
 
 
 		/**
-		 * gets the Tweet by profile id
+		 * gets the Product by profile id
 		 *
 		 * @param \PDO $pdo PDO connection object
 		 * @param Uuid|string $productCategoryId profile id to search by
@@ -290,35 +290,38 @@ class Product {
 		 * @throws \TypeError when variables are not the correct data type
 		 **/
 
-		public static function getProductByProductCategoryId(\PDO $pdo, $productCategoryId) :\SplFixedArray{
+		public static function getProductByProductCategoryId(\PDO $pdo, $productCategoryId) :\SplFixedArray {
 
-			try{
+			try {
 				$productCategoryId = self::validateUuid($productCategoryId);
+
+
 			} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 				throw (new \PDOException(($exception->getMessage()), 0, $exception));
 			}
-				// create query template
-				$query = "SELECT productId, productCategoryId, ProductType, productDate FROM product WHERE productCategoryId = :productCategoryId";
-				$statment = $pdo->prepare($query);
-				// bind the product category id to the place holder in the template
-				$parameters = ["productCategoryId" => $productCategoryId->getBytes()];
-				$statment->execute($parameters);
-				// build an array of products
-				$products = new  \SplFixedArray(($statment->rowCount()));
-				$statment->setFetchMode(\PDO:: FETCH_ASSOC);
-				while(($row = $statment->fetch()) !== false) {
-					try {
-						$product = new  Product($row ["productId"], $row["productCategoryId"], $row["productType"], $row["productDate"]);
-						$product[$product->key()] = $product;
-						$product->next();
-					} catch(\Exception $exception) {
-						// if the row couldn't be converted, rethrow it
-						throw (new \PDOException($exception->getMessage(), 0, $exception));
-					}
-
-					return ($products);
+			// create query template
+			$query = "SELECT productId, productCategoryId, ProductType, productDate FROM product WHERE productCategoryId = :productCategoryId";
+			$statment = $pdo->prepare($query);
+			// bind the product category id to the place holder in the template
+			$parameters = ["productCategoryId" => $productCategoryId->getBytes()];
+			$statment->execute($parameters);
+			// build an array of products
+			$products = new  \SplFixedArray(($statment->rowCount()));
+			$statment->setFetchMode(\PDO:: FETCH_ASSOC);
+			while(($row = $statment->fetch()) !== false) {
+				try {
+					$product = new  Product($row ["productId"], $row["productCategoryId"], $row["productType"], $row["productDate"]);
+					$product[$product->key()] = $product;
+					$product->next();
+				} catch(\Exception $exception) {
+					// if the row couldn't be converted, rethrow it
+					throw (new \PDOException($exception->getMessage(), 0, $exception));
 				}
+				return ($products);
 			}
+		}
+
+
 
 
 
