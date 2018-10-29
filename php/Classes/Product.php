@@ -290,7 +290,7 @@ class Product {
 		 * @throws \TypeError when variables are not the correct data type
 		 **/
 
-		public static function getProductByProductCategoryId(\PDO $pdo, $productCategoryId) :\SplFixedArray {
+		public static function getProductByProductCategoryId(\PDO $pdo, $productCategoryId) :\SplFixedArray{
 
 			try {
 				$productCategoryId = self::validateUuid($productCategoryId);
